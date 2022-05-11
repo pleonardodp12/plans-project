@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
+import { AllHTMLAttributes, ReactNode } from "react";
 import { SectionContainer, Title } from "./styles"
 
-interface IProps {
+interface IProps extends AllHTMLAttributes<HTMLDivElement> {
   title: string;
   color?: 'white' | 'white200';
   children?: ReactNode;

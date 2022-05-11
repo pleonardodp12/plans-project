@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ContentSection = styled.section`
   width: 100%;
@@ -26,4 +26,4 @@ export const ContentSection = styled.section`
       margin: auto;
     }
   }
-`
+`;
