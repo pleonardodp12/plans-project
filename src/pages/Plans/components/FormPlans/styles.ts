@@ -71,8 +71,7 @@ export const GroupPlans = styled.ul`
   li {
     background: ${({ theme }) => theme.colors.white};
     border: 1px solid ${({ theme }) => theme.colors.grayLight};
-    height: 200px;
-    max-width: 300px;
+    height: 8rem;
     border-radius: 8px;
     padding: 16px;
     display: flex;
@@ -94,4 +93,9 @@ export const GroupPlans = styled.ul`
       color: ${({ theme }) => theme.colors.primary};
     }
   }
+`;
+
+export const Value = styled.p`
+  font-weight: bold;
+  color: #118c4f;
 `;
