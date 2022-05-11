@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Header, Hero, Section, PlatformCards, Footer } from '../../components';
-import ConnectedWorld from '../../assets/connected-world.svg';
-import api from '../../services/api';
+import api from 'services/api';
+import { Header, Hero, Section, PlatformCards, Footer } from 'components';
+import ConnectedWorld from 'assets/connected-world.svg';
 import { ContentSection } from './styles';
 
 export function Home() {
@@ -20,7 +20,7 @@ export function Home() {
     <>
       <Header />
       <Hero />
-      <Section id="platform-select" title="Qual sua plataforma?">
+      <Section id="platform-select" title="Qual sua plataforma?" color="white">
         <PlatformCards platforms={platforms} />
       </Section>
 

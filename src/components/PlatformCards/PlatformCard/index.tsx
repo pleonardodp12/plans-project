@@ -1,11 +1,9 @@
-import { FaTabletAlt, FaWifi } from 'react-icons/fa'
-import { GrPersonalComputer } from 'react-icons/gr'
+import { FaTabletAlt, FaWifi } from 'react-icons/fa';
+import { GrPersonalComputer } from 'react-icons/gr';
 
-import { CardWrapper, Title, Description } from './styles'
+import { CardWrapper, Title, Description } from './styles';
 
-import { PrimaryButton } from "../../PrimaryButton"
-import { IconType } from 'react-icons';
-import { ReactElement } from 'react';
+import { PrimaryButton } from '../../PrimaryButton';
 
 export interface IPlatform {
   descricao: string;
@@ -14,17 +12,17 @@ export interface IPlatform {
 }
 
 interface IProps {
-  platform: IPlatform
+  platform: IPlatform;
 }
 
-export const PlatformCard = (props: IProps) => {
-  const { platform } = props
+export function PlatformCard(props: IProps) {
+  const { platform } = props;
 
   const icons: any = {
     TBT01: <FaTabletAlt size={32} />,
     CPT02: <GrPersonalComputer size={32} />,
-    WF03: <FaWifi size={32} />
-  }
+    WF03: <FaWifi size={32} />,
+  };
 
   return (
     <CardWrapper>
@@ -33,5 +31,5 @@ export const PlatformCard = (props: IProps) => {
       <Description>{platform.descricao}</Description>
       <PrimaryButton>Ver planos</PrimaryButton>
     </CardWrapper>
-  )
+  );
 }

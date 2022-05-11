@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const CardWrapper = styled.div`
   width: 16rem;
@@ -10,13 +10,11 @@ export const CardWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-`
+`;
 
-export const Title = styled.h3`
-
-`
+export const Title = styled.h3``;
 
 export const Description = styled.p`
   text-align: center;
-  color:  ${({ theme }) => theme.colors.gray};
-`
+  color: ${({ theme }) => theme.colors.gray};
+`;

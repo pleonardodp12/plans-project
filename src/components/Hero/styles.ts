@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const HeroContainer = styled.div`
   width: 100%;
@@ -8,10 +8,9 @@ export const HeroContainer = styled.div`
 
   @media (max-width: 590px) {
     flex-direction: column;
-    height: 90vh
+    height: 90vh;
   }
-`
-
+`;
 
 export const TextContainer = styled.div`
   width: 50%;
@@ -26,7 +25,7 @@ export const TextContainer = styled.div`
     padding: 2rem;
     height: 40vh;
   }
-`
+`;
 
 export const Text = styled.h1`
   color: ${({ theme }) => theme.colors.gray200};
@@ -37,7 +36,7 @@ export const Text = styled.h1`
   @media (max-width: 590px) {
     width: 80%;
   }
-`
+`;
 export const ImageContainer = styled.div`
   width: 50%;
   display: flex;
@@ -55,4 +54,4 @@ export const ImageContainer = styled.div`
       height: 70%;
     }
   }
-`
+`;

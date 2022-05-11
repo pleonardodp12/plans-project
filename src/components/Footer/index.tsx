@@ -1,9 +1,9 @@
-import { FooterContainer } from "./styles"
+import { FooterContainer } from './styles';
 
-export const Footer = () => {
+export function Footer() {
   return (
     <FooterContainer>
       Plans Allied - todos os direitos reservados.
     </FooterContainer>
-  )
+  );
 }
