@@ -4,3 +4,5 @@ export { PrimaryButton } from './PrimaryButton';
 export { Section } from './Section';
 export { PlatformCards } from './PlatformCards';
 export { Footer } from './Footer';
+export { Input } from './Inputs/Input';
+export { ErrorMessage } from './ErrorMessage';
