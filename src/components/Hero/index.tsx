@@ -1,4 +1,4 @@
-import HeroImage from 'assets/online-connection.svg';
+import HeroImage from '../../assets/online-connection.svg';
 import { PrimaryButton } from '../PrimaryButton';
 import { HeroContainer, TextContainer, ImageContainer, Text } from './styles';
 

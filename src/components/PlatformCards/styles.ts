@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const PlatformCardsContainer = styled.div`
   display: flex;
@@ -9,4 +9,4 @@ export const PlatformCardsContainer = styled.div`
   @media (max-width: 960px) {
     flex-direction: column;
   }
-`
+`;

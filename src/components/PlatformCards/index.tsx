@@ -1,17 +1,17 @@
 import { IPlatform, PlatformCard } from './PlatformCard';
-import { PlatformCardsContainer } from './styles'
+import { PlatformCardsContainer } from './styles';
 
 interface IProps {
   platforms: IPlatform[];
 }
 
-export const PlatformCards = (props: IProps) => {
-  const { platforms } = props
+export function PlatformCards(props: IProps) {
+  const { platforms } = props;
   return (
     <PlatformCardsContainer>
-      {platforms.map((platform, index) => (
-        <PlatformCard key={index} platform={platform} />
+      {platforms.map((platform) => (
+        <PlatformCard key={platform.sku} platform={platform} />
       ))}
     </PlatformCardsContainer>
-  )
+  );
 }

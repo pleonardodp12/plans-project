@@ -1,13 +1,15 @@
-import { Route, BrowserRouter, Switch } from 'react-router-dom';
-import { Home, Plans } from 'pages';
+import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import { Header } from '../components';
+import { Home, Plans } from '../pages';
 
 export function AppRoute() {
   return (
     <BrowserRouter>
-      <Switch>
-        <Route component={Home} path="/" exact />
-        <Route component={Plans} path="/plans/:sku" />
-      </Switch>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/plans/:sku" element={<Plans />} />
+      </Routes>
     </BrowserRouter>
   );
 }

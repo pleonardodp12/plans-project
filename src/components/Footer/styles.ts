@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const FooterContainer = styled.footer`
   background: ${({ theme }) => theme.colors.white};
@@ -7,4 +7,4 @@ export const FooterContainer = styled.footer`
   display: flex;
   align-items: center;
   justify-content: center;
-`
+`;
