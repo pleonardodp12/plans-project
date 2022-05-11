@@ -13,7 +13,7 @@ export const Hero = () => {
       </TextContainer>
 
       <ImageContainer>
-        <img src={HeroImage} alt="" />
+        <img src={HeroImage} alt="Homem fazendo conexão com a internet" />
       </ImageContainer>
     </HeroContainer>
   )

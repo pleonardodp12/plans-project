@@ -7,10 +7,12 @@ export const ButtonWrapper = styled.button`
   border: none;
   background: ${({ theme }) => theme.colors.primary};
   color: ${({ theme }) => theme.colors.white};
-  transition: filter ease .3s;
+  transition: all ease .3s;
   cursor: pointer;
+  box-shadow: 1px 3px 4px rgba(19, 125, 224, 0.5);
 
   &:hover {
     filter: brightness(0.9);
+    box-shadow: 1px 2px 2px rgba(19, 125, 224, 0.5);
   }
 `
