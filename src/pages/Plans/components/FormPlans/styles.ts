@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const FormContainer = styled.form`
   width: 80%;
-  padding-top: 2.4rem;
+  padding: 2.4rem 0;
   margin: 0 auto;
   position: relative;
   background: ${({ theme }) => theme.colors.white200};
@@ -60,4 +60,38 @@ export const BackButton = styled.button`
   border-radius: 50px;
   border: 1px solid ${({ theme }) => theme.colors.grayLight};
   cursor: pointer;
+`;
+
+export const GroupPlans = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  list-style: none;
+
+  li {
+    background: ${({ theme }) => theme.colors.white};
+    border: 1px solid ${({ theme }) => theme.colors.grayLight};
+    height: 200px;
+    max-width: 300px;
+    border-radius: 8px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+
+    &.selected {
+      background: ${({ theme }) => theme.colors.white200};
+      border: 2px solid ${({ theme }) => theme.colors.primary};
+    }
+    span {
+      flex: 1;
+
+      display: flex;
+      align-items: center;
+      color: ${({ theme }) => theme.colors.primary};
+    }
+  }
 `;
