@@ -4,4 +4,5 @@ export enum ErrorMessages {
   invalidCpf = 'Informe um CPF válido!',
   cpfMinCharacters = 'Mínimo 11 dígitos!',
   invalidEmail = 'Informe um e-mail válido!',
+  plansRequired = 'Selecione um plano!',
 }

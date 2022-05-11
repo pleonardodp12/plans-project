@@ -22,8 +22,12 @@ export const FormContainer = styled.form`
     min-inline-size: auto;
     border: 0;
     width: 100%;
-    padding: 2rem;
+    padding: 3rem;
     margin: 3rem auto 0 auto;
+
+    @media (max-width: 560px) {
+      padding: 1rem;
+    }
   }
 
   legend {
@@ -39,7 +43,7 @@ export const GroupInputs = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  gap: 1rem;
+  gap: 0 2rem;
 
   @media (max-width: 590px) {
     flex-direction: column;
@@ -65,21 +69,25 @@ export const BackButton = styled.button`
 export const GroupPlans = styled.ul`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
   list-style: none;
+  gap: 0.4rem;
 
   li {
     background: ${({ theme }) => theme.colors.white};
     border: 1px solid ${({ theme }) => theme.colors.grayLight};
-    height: 9.4rem;
+    height: 9rem;
     border-radius: 8px;
     padding: 16px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     text-align: center;
     cursor: pointer;
+
+    @media (max-width: 560px) {
+      height: 12rem;
+    }
 
     &.selected {
       background: ${({ theme }) => theme.colors.white200};

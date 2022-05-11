@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { IoArrowBackOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
-import { Input, PrimaryButton } from '../../../../components';
+import { ErrorMessage, Input, PrimaryButton } from '../../../../components';
 import api from '../../../../services/api';
 import { formatCurrencyBRL } from '../../../../utils/helpers';
 import { validationSchema } from './validationSchema';
@@ -13,6 +13,7 @@ import {
   Value,
 } from './styles';
 import { useForm } from '../../../../hooks/useForm';
+import { ErrorMessages } from '../../../../utils/constants';
 
 interface IProps {
   sku: string;
@@ -32,7 +33,6 @@ interface IPlan {
 
 interface IFormPlan {
   name: string;
-  date: string;
   email: string;
   cpf: string;
   phone: string;
@@ -42,7 +42,6 @@ interface IFormPlan {
 const initialValues: IFormPlan = {
   name: '',
   email: '',
-  date: '',
   cpf: '',
   phone: '',
   birthDay: '',
@@ -52,6 +51,10 @@ export function FormPlans(props: IProps) {
   const { sku } = props;
   const navigate = useNavigate();
   const [plans, setPlans] = useState<IPlan[]>([]);
+  const [plasRequired, setPlansRequired] = useState({
+    hasError: false,
+    messageError: ErrorMessages.plansRequired,
+  });
   const [selectedPlan, setSelectedPlan] = useState<IPlan>({} as IPlan);
 
   useEffect(() => {
@@ -79,9 +82,16 @@ export function FormPlans(props: IProps) {
     return `+ ${nome} (${formatCurrencyBRL(valor)})`;
   };
 
+  const hasSelectedPlan = Object.values(selectedPlan).length;
+
   const onSubmit = async (values: IFormPlan) => {
-    // fazer validaçaõ para selecionar planos
-    console.log(values);
+    if (!hasSelectedPlan) {
+      return setPlansRequired((prevValue) => ({
+        ...prevValue,
+        hasError: true,
+      }));
+    }
+    return console.log(values);
   };
 
   const { errors, fieldProps, handleSubmit, hasError, setValue, values } =
@@ -93,6 +103,7 @@ export function FormPlans(props: IProps) {
 
   const handleSelectItem = (plan: IPlan) => {
     setSelectedPlan(plan);
+    setPlansRequired((prevValue) => ({ ...prevValue, hasError: false }));
   };
 
   return (
@@ -146,6 +157,9 @@ export function FormPlans(props: IProps) {
       </fieldset>
 
       <fieldset>
+        {plasRequired.hasError && (
+          <ErrorMessage>{plasRequired.messageError}</ErrorMessage>
+        )}
         <legend>Planos {sku}</legend>
 
         <GroupPlans>

@@ -10,7 +10,7 @@ export const InputWrapper = styled.div`
   flex-direction: column;
   width: 100%;
   max-width: 282px;
-  margin-bottom: 0.4rem;
+  margin-bottom: 1rem;
 `;
 
 export const Label = styled.label<IInputProps>`
