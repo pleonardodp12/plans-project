@@ -6,3 +6,5 @@ export { PlatformCards } from './PlatformCards';
 export { Footer } from './Footer';
 export { Input } from './Inputs/Input';
 export { ErrorMessage } from './ErrorMessage';
+export { NotFound } from './NotFound';
+export { Loading } from './Loading';

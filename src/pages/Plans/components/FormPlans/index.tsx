@@ -1,9 +1,15 @@
 import { useEffect, useState } from 'react';
 import { IoArrowBackOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
-import { ErrorMessage, Input, PrimaryButton } from '../../../../components';
+import {
+  ErrorMessage,
+  Input,
+  Loading,
+  NotFound,
+  PrimaryButton,
+} from '../../../../components';
 import api from '../../../../services/api';
-import { formatCurrencyBRL } from '../../../../utils/helpers';
+import { cpfMask, formatCurrencyBRL } from '../../../../utils/helpers';
 import { validationSchema } from './validationSchema';
 import {
   FormContainer,
@@ -51,16 +57,28 @@ export function FormPlans(props: IProps) {
   const { sku } = props;
   const navigate = useNavigate();
   const [plans, setPlans] = useState<IPlan[]>([]);
+  const [planError, setPlanError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [plasRequired, setPlansRequired] = useState({
     hasError: false,
     messageError: ErrorMessages.plansRequired,
   });
   const [selectedPlan, setSelectedPlan] = useState<IPlan>({} as IPlan);
 
+  const getPlans = async () => {
+    try {
+      setIsLoading(true);
+      const { data } = await api.get(`planos/${sku}`);
+      setIsLoading(false);
+      return setPlans(data.planos);
+    } catch (e) {
+      setIsLoading(false);
+      return setPlanError(true);
+    }
+  };
+
   useEffect(() => {
-    api.get(`planos/${sku}`).then((response) => {
-      setPlans(response.data.planos);
-    });
+    getPlans();
   }, []);
 
   const getPlanName = (name: string) => {
@@ -106,6 +124,10 @@ export function FormPlans(props: IProps) {
     setPlansRequired((prevValue) => ({ ...prevValue, hasError: false }));
   };
 
+  if (isLoading) return <Loading />;
+
+  if (planError) return <NotFound />;
+
   return (
     <FormContainer onSubmit={handleSubmit}>
       <BackButton type="button" onClick={() => navigate('/')}>
@@ -134,12 +156,14 @@ export function FormPlans(props: IProps) {
             {...fieldProps('birthDay')}
             label="Nascimento"
             isInvalid={hasError('birthDay')}
+            mask="date"
             error={errors.birthDay}
             placeholder="__/__/____"
           />
           <Input
             {...fieldProps('cpf')}
             label="CPF"
+            mask="cpf"
             isInvalid={hasError('cpf')}
             error={errors.cpf}
             placeholder="___.___.___-__"
@@ -149,9 +173,10 @@ export function FormPlans(props: IProps) {
           <Input
             {...fieldProps('phone')}
             label="telefone"
+            mask="phone"
             isInvalid={hasError('phone')}
             error={errors.phone}
-            placeholder="( __ ) _____-____"
+            placeholder="( __ ) _________"
           />
         </GroupInputs>
       </fieldset>

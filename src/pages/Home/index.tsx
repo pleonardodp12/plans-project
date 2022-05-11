@@ -7,12 +7,12 @@ import { ContentSection } from './styles';
 export function Home() {
   const [platforms, setPlatforms] = useState([]);
 
-  useEffect(() => {
-    const getPlatforms = async () => {
-      const { data } = await api.get('/plataformas');
-      return setPlatforms(data.plataformas);
-    };
+  const getPlatforms = async () => {
+    const { data } = await api.get('/plataformas');
+    return setPlatforms(data.plataformas);
+  };
 
+  useEffect(() => {
     getPlatforms();
   }, []);
 

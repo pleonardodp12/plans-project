@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import { cpf as cpfValidator } from 'cpf-cnpj-validator';
+import moment from 'moment';
 import { ErrorMessages } from '../../../../utils/constants';
 
 export const validationSchema = Yup.object().shape({
@@ -13,6 +14,14 @@ export const validationSchema = Yup.object().shape({
     .test('cpf', ErrorMessages.invalidCpf, (value) =>
       cpfValidator.isValid(value || ''),
     ),
-  birthDay: Yup.string().required(ErrorMessages.fieldRequired),
+  birthDay: Yup.string()
+    .required(ErrorMessages.fieldRequired)
+    .test(
+      'Date valid',
+      ErrorMessages.invalidDate,
+      (value) =>
+        moment(value, 'DD/MM/YYYY').isAfter() ||
+        moment().isSame(moment(value, 'DD/MM/YYYY'), 'day'),
+    ),
   phone: Yup.string().required(ErrorMessages.fieldRequired),
 });
