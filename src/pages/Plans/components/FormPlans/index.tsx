@@ -52,7 +52,7 @@ export function FormPlans(props: IProps) {
   const { sku } = props;
   const navigate = useNavigate();
   const [plans, setPlans] = useState<IPlan[]>([]);
-  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [selectedPlan, setSelectedPlan] = useState<IPlan>({} as IPlan);
 
   useEffect(() => {
     api.get(`planos/${sku}`).then((response) => {
@@ -63,6 +63,20 @@ export function FormPlans(props: IProps) {
   const getPlanName = (name: string) => {
     const formatedName = name.split('_')[0];
     return formatedName;
+  };
+
+  const getDeviceInformation = (plan: IPlan) => {
+    if (!plan.aparelho) return null;
+    const { nome, valor, numeroParcelas } = plan.aparelho;
+
+    const hasInstallments = numeroParcelas > 1;
+
+    if (hasInstallments) {
+      return `+ ${nome} (${formatCurrencyBRL(
+        valor,
+      )}) em até ${numeroParcelas}x SEM JUROS`;
+    }
+    return `+ ${nome} (${formatCurrencyBRL(valor)})`;
   };
 
   const onSubmit = async (values: IFormPlan) => {
@@ -77,15 +91,10 @@ export function FormPlans(props: IProps) {
       validationSchema,
     });
 
-  const handleSelectItem = (id: string) => {
-    const alreadySelected = selectedItems.findIndex((item) => item === id);
-    if (alreadySelected >= 0) {
-      const filteredItems = selectedItems.filter((item) => item !== id);
-      setSelectedItems(filteredItems);
-    } else {
-      setSelectedItems([...selectedItems, id]);
-    }
+  const handleSelectItem = (plan: IPlan) => {
+    setSelectedPlan(plan);
   };
+
   return (
     <FormContainer onSubmit={handleSubmit}>
       <BackButton type="button" onClick={() => navigate('/')}>
@@ -144,14 +153,14 @@ export function FormPlans(props: IProps) {
             <li
               aria-hidden="true"
               key={plan.sku}
-              onClick={() => handleSelectItem(plan.sku)}
-              className={selectedItems.includes(plan.sku) ? 'selected' : ''}
+              onClick={() => handleSelectItem(plan)}
+              className={selectedPlan.sku === plan.sku ? 'selected' : ''}
             >
-              <span>
-                {getPlanName(plan.sku)} - {plan.franquia}
-              </span>
-              <span />
+              <strong>{getPlanName(plan.sku)}</strong>
+
+              <span>{plan.franquia}</span>
               <Value>{formatCurrencyBRL(plan.valor)}</Value>
+              {getDeviceInformation(plan)}
             </li>
           ))}
         </GroupPlans>

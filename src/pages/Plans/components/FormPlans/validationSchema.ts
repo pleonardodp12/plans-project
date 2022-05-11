@@ -8,7 +8,7 @@ export const validationSchema = Yup.object().shape({
     .email(ErrorMessages.invalidEmail)
     .required(ErrorMessages.fieldRequired),
   cpf: Yup.string()
-    .required()
+    .required(ErrorMessages.fieldRequired)
     .min(11, ErrorMessages.cpfMinCharacters)
     .test('cpf', ErrorMessages.invalidCpf, (value) =>
       cpfValidator.isValid(value || ''),

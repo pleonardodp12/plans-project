@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const FormContainer = styled.form`
-  width: 80%;
+  width: 60%;
   padding: 2.4rem 0;
   margin: 0 auto;
   position: relative;
@@ -12,7 +12,7 @@ export const FormContainer = styled.form`
   justify-content: center;
   border-radius: 1rem;
 
-  @media (max-width: 590px) {
+  @media (max-width: 960px) {
     width: 100%;
     flex-direction: column;
     border-radius: 0;
@@ -71,7 +71,7 @@ export const GroupPlans = styled.ul`
   li {
     background: ${({ theme }) => theme.colors.white};
     border: 1px solid ${({ theme }) => theme.colors.grayLight};
-    height: 8rem;
+    height: 9.4rem;
     border-radius: 8px;
     padding: 16px;
     display: flex;
@@ -87,7 +87,6 @@ export const GroupPlans = styled.ul`
     }
     span {
       flex: 1;
-
       display: flex;
       align-items: center;
       color: ${({ theme }) => theme.colors.primary};
@@ -97,5 +96,6 @@ export const GroupPlans = styled.ul`
 
 export const Value = styled.p`
   font-weight: bold;
-  color: #118c4f;
+  font-size: 1.2rem;
+  color: ${({ theme }) => theme.colors.primary};
 `;
