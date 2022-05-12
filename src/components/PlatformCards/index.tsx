@@ -9,7 +9,7 @@ export function PlatformCards(props: IProps) {
   const { platforms } = props;
   return (
     <PlatformCardsContainer>
-      {platforms.map((platform) => (
+      {platforms?.map((platform) => (
         <PlatformCard key={platform.sku} platform={platform} />
       ))}
     </PlatformCardsContainer>

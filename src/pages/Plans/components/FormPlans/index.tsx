@@ -187,7 +187,7 @@ export function FormPlans(props: IProps) {
         <legend>Planos {sku}</legend>
 
         <GroupPlans>
-          {plans.map((plan) => (
+          {plans?.map((plan) => (
             <li
               aria-hidden="true"
               key={plan.sku}
