@@ -1,6 +1,6 @@
-import 'styled-components';
+import { DefaultTheme } from 'styled-components';
 
-export const theme = {
+export const theme: DefaultTheme = {
   colors: {
     primary: '#0F9AFE',
     white: '#FFFFFF',
@@ -11,8 +11,8 @@ export const theme = {
   },
 };
 
-declare module 'styled-components' {
-  type TTheme = typeof theme;
+// declare module 'styled-components' {
+//   type TTheme = typeof theme;
 
-  export type DefaultTheme = TTheme;
-}
+//   export type DefaultTheme = TTheme;
+// }
