@@ -1,6 +1,6 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { Header } from '../components';
-import { Home, Plans } from '../pages';
+import { ConfirmCheckout, Home, Plans } from '../pages';
 
 export function AppRoute() {
   return (
@@ -9,6 +9,7 @@ export function AppRoute() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/plans/:sku" element={<Plans />} />
+        <Route path="/plans/:sku/checkout" element={<ConfirmCheckout />} />
       </Routes>
     </BrowserRouter>
   );

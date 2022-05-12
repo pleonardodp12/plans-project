@@ -1,4 +1,4 @@
-import { screen, render, waitFor } from '@testing-library/react';
+import { screen, render } from '@testing-library/react';
 import { ThemeProvider } from 'styled-components';
 import axios from 'axios';
 import { Home } from '.';

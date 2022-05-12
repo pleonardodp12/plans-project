@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const FormContainer = styled.form`
   width: 60%;
+  max-width: 860px;
   padding: 2.4rem 0;
   margin: 0 auto;
   position: relative;
@@ -49,21 +50,6 @@ export const GroupInputs = styled.div`
     flex-direction: column;
     align-items: center;
   }
-`;
-
-export const BackButton = styled.button`
-  width: 3rem;
-  height: 3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  background: ${({ theme }) => theme.colors.white};
-  border-radius: 50px;
-  border: 1px solid ${({ theme }) => theme.colors.grayLight};
-  cursor: pointer;
 `;
 
 export const GroupPlans = styled.ul`

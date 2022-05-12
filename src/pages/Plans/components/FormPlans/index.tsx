@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { IoArrowBackOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 import {
+  BackButton,
   ErrorMessage,
   Input,
   Loading,
@@ -9,42 +10,18 @@ import {
   PrimaryButton,
 } from '../../../../components';
 import { getPlans } from '../../../../services/api';
-import { formatCurrencyBRL } from '../../../../utils/helpers';
+import { formatCurrencyBRL, getPlanName } from '../../../../utils/helpers';
 import { validationSchema } from './validationSchema';
-import {
-  FormContainer,
-  GroupInputs,
-  GroupPlans,
-  BackButton,
-  Value,
-} from './styles';
+import { FormContainer, GroupInputs, GroupPlans, Value } from './styles';
 import { useForm } from '../../../../hooks/useForm';
 import { ErrorMessages } from '../../../../utils/constants';
+import { IFormPlan, IPlan } from '../../../../context/checkoutContext';
+import { useInfoCheckout } from '../../../../hooks/useInfoCheckout';
 
 const BAD_REQUEST_CODE = 'ERR_BAD_REQUEST';
 
 interface IProps {
   sku: string;
-}
-interface IPlan {
-  sku: string;
-  franquia: string;
-  valor: string;
-  aparelho?: {
-    nome: string;
-    valor: string;
-    numeroParcelas: number;
-    valorParcela: string;
-  };
-  ativo: boolean;
-}
-
-interface IFormPlan {
-  name: string;
-  email: string;
-  cpf: string;
-  phone: string;
-  birthDay: string;
 }
 
 const initialValues: IFormPlan = {
@@ -58,6 +35,7 @@ const initialValues: IFormPlan = {
 export function FormPlans(props: IProps) {
   const { sku } = props;
   const navigate = useNavigate();
+  const { setPersonalData, setPlan } = useInfoCheckout();
   const [plans, setPlans] = useState<IPlan[]>([]);
   const [planError, setPlanError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -79,11 +57,6 @@ export function FormPlans(props: IProps) {
   useEffect(() => {
     fetchPlans(sku);
   }, [sku]);
-
-  const getPlanName = (name: string) => {
-    const formatedName = name.split('_')[0];
-    return formatedName;
-  };
 
   const getDeviceInformation = (plan: IPlan) => {
     if (!plan.aparelho) return null;
@@ -108,15 +81,17 @@ export function FormPlans(props: IProps) {
         hasError: true,
       }));
     }
-    return console.log(values);
+
+    setPlan(selectedPlan);
+    setPersonalData(values);
+    return navigate(`/plans/${sku}/checkout`);
   };
 
-  const { errors, fieldProps, handleSubmit, hasError, setValue, values } =
-    useForm<IFormPlan>({
-      initialValues,
-      onSubmit,
-      validationSchema,
-    });
+  const { errors, fieldProps, handleSubmit, hasError } = useForm<IFormPlan>({
+    initialValues,
+    onSubmit,
+    validationSchema,
+  });
 
   const handleSelectItem = (plan: IPlan) => {
     setSelectedPlan(plan);
@@ -129,9 +104,7 @@ export function FormPlans(props: IProps) {
 
   return (
     <FormContainer onSubmit={handleSubmit}>
-      <BackButton type="button" onClick={() => navigate('/')}>
-        <IoArrowBackOutline size={24} />
-      </BackButton>
+      <BackButton backTo="/" />
       <fieldset>
         <legend>Dados pessoais</legend>
         <GroupInputs>

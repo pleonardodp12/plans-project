@@ -8,3 +8,4 @@ export { Input } from './Inputs/Input';
 export { ErrorMessage } from './ErrorMessage';
 export { NotFound } from './NotFound';
 export { Loading } from './Loading';
+export { BackButton } from './BackButton';
