@@ -6,6 +6,7 @@ export function Hero() {
   const goToPlans = () => {
     window.scrollTo({ top: -300, left: 0, behavior: 'smooth' });
   };
+
   return (
     <HeroContainer>
       <TextContainer>
