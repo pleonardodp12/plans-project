@@ -21,6 +21,8 @@ import {
 import { useForm } from '../../../../hooks/useForm';
 import { ErrorMessages } from '../../../../utils/constants';
 
+const BAD_REQUEST_CODE = 'ERR_BAD_REQUEST';
+
 interface IProps {
   sku: string;
 }
@@ -58,7 +60,7 @@ export function FormPlans(props: IProps) {
   const navigate = useNavigate();
   const [plans, setPlans] = useState<IPlan[]>([]);
   const [planError, setPlanError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [plasRequired, setPlansRequired] = useState({
     hasError: false,
     messageError: ErrorMessages.plansRequired,
@@ -66,9 +68,11 @@ export function FormPlans(props: IProps) {
   const [selectedPlan, setSelectedPlan] = useState<IPlan>({} as IPlan);
 
   const fetchPlans = async (skuValue: string) => {
-    setIsLoading(true);
     const response = await getPlans(skuValue);
     setIsLoading(false);
+    if (response.code === BAD_REQUEST_CODE) {
+      return setPlanError(true);
+    }
     return setPlans(response);
   };
 

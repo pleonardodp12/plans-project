@@ -16,12 +16,8 @@ export const validationSchema = Yup.object().shape({
     ),
   birthDay: Yup.string()
     .required(ErrorMessages.fieldRequired)
-    .test(
-      'Date valid',
-      ErrorMessages.invalidDate,
-      (value) =>
-        moment(value, 'DD/MM/YYYY').isAfter() ||
-        moment().isSame(moment(value, 'DD/MM/YYYY'), 'day'),
+    .test('Date valid', ErrorMessages.invalidDate, (value) =>
+      moment(value, 'DD/MM/YYYY').isValid(),
     ),
   phone: Yup.string().required(ErrorMessages.fieldRequired),
 });
