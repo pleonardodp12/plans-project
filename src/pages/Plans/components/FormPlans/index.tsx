@@ -8,8 +8,8 @@ import {
   NotFound,
   PrimaryButton,
 } from '../../../../components';
-import api from '../../../../services/api';
-import { cpfMask, formatCurrencyBRL } from '../../../../utils/helpers';
+import { getPlans } from '../../../../services/api';
+import { formatCurrencyBRL } from '../../../../utils/helpers';
 import { validationSchema } from './validationSchema';
 import {
   FormContainer,
@@ -65,21 +65,16 @@ export function FormPlans(props: IProps) {
   });
   const [selectedPlan, setSelectedPlan] = useState<IPlan>({} as IPlan);
 
-  const getPlans = async () => {
-    try {
-      setIsLoading(true);
-      const { data } = await api.get(`planos/${sku}`);
-      setIsLoading(false);
-      return setPlans(data.planos);
-    } catch (e) {
-      setIsLoading(false);
-      return setPlanError(true);
-    }
+  const fetchPlans = async (skuValue: string) => {
+    setIsLoading(true);
+    const response = await getPlans(skuValue);
+    setIsLoading(false);
+    return setPlans(response);
   };
 
   useEffect(() => {
-    getPlans();
-  }, []);
+    fetchPlans(sku);
+  }, [sku]);
 
   const getPlanName = (name: string) => {
     const formatedName = name.split('_')[0];

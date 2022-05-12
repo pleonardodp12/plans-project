@@ -1,19 +1,20 @@
 import { useEffect, useState } from 'react';
-import api from '../../services/api';
+import { getPlatforms } from '../../services/api';
 import ConnectedWorld from '../../assets/connected-world.svg';
 import { Hero, Section, PlatformCards, Footer } from '../../components';
 import { ContentSection } from './styles';
+import { IPlatform } from '../../components/PlatformCards/PlatformCard';
 
 export function Home() {
-  const [platforms, setPlatforms] = useState([]);
+  const [platforms, setPlatforms] = useState<IPlatform[]>([]);
 
-  const getPlatforms = async () => {
-    const { data } = await api.get('/plataformas');
-    return setPlatforms(data.plataformas);
+  const fetchPlatforms = async () => {
+    const response: any = await getPlatforms();
+    return setPlatforms(response.plataformas);
   };
 
   useEffect(() => {
-    getPlatforms();
+    fetchPlatforms();
   }, []);
 
   return (
