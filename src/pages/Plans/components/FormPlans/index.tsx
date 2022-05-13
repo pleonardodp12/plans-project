@@ -24,18 +24,15 @@ interface IProps {
   sku: string;
 }
 
-const initialValues: IFormPlan = {
-  name: '',
-  email: '',
-  cpf: '',
-  phone: '',
-  birthDay: '',
-};
-
 export function FormPlans(props: IProps) {
   const { sku } = props;
   const navigate = useNavigate();
-  const { setPersonalData, setPlan } = useInfoCheckout();
+  const {
+    personalData,
+    plan: planContext,
+    setPersonalData,
+    setPlan,
+  } = useInfoCheckout();
   const [plans, setPlans] = useState<IPlan[]>([]);
   const [planError, setPlanError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -43,7 +40,15 @@ export function FormPlans(props: IProps) {
     hasError: false,
     messageError: ErrorMessages.plansRequired,
   });
-  const [selectedPlan, setSelectedPlan] = useState<IPlan>({} as IPlan);
+  const [selectedPlan, setSelectedPlan] = useState<IPlan>(planContext);
+
+  const initialValues: IFormPlan = {
+    name: personalData?.name,
+    email: personalData?.email,
+    cpf: personalData?.cpf,
+    phone: personalData?.phone,
+    birthDay: personalData?.birthDay,
+  };
 
   const fetchPlans = async (skuValue: string) => {
     const response = await getPlans(skuValue);

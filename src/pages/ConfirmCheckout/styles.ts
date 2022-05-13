@@ -4,6 +4,7 @@ export const ContainerCheckout = styled.div`
   width: 60%;
   max-width: 860px;
   height: 100%;
+  min-height: 60vh;
   padding: 2.4rem 0;
   margin: 0 auto;
   position: relative;
@@ -50,4 +51,12 @@ export const Title = styled.h2`
 export const Info = styled.p`
   font-size: 1rem;
   color: ${({ theme }) => theme.colors.gray};
+`;
+
+export const SucessState = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { GiConfirmed } from 'react-icons/gi';
+import { Navigate, useParams } from 'react-router-dom';
 import { BackButton, PrimaryButton } from '../../components';
 import { IPlan } from '../../context/checkoutContext';
 import { useInfoCheckout } from '../../hooks/useInfoCheckout';
+import { theme } from '../../theme';
 import {
   formatCurrencyBRL,
   formatStringToFloat,
@@ -14,20 +16,18 @@ import {
   InfoGroup,
   Title,
   Info,
+  SucessState,
 } from './styles';
 
 export function ConfirmCheckout() {
-  const navigate = useNavigate();
-  const { sku } = useParams();
   const { plan, personalData } = useInfoCheckout();
+  const { sku } = useParams();
+  const [success, setSuccess] = useState(false);
   const [selectedInstallment] = useState<number>(
     plan.aparelho?.numeroParcelas || 1,
   );
 
-  if (!plan) {
-    navigate('/');
-    return null;
-  }
+  if (!plan.sku) return <Navigate replace to="/" />;
 
   const getTotalPrice = (planSelected: IPlan) => {
     const planPrice = planSelected.valor;
@@ -50,6 +50,10 @@ export function ConfirmCheckout() {
     return formatCurrencyBRL(`${priceDividedInstallment}`);
   };
 
+  const handleSuccessComponent = () => {
+    setSuccess(true);
+  };
+
   const hasDevice = plan.aparelho;
 
   const hasInstallment = plan.aparelho && plan.aparelho?.numeroParcelas > 1;
@@ -57,44 +61,51 @@ export function ConfirmCheckout() {
   return (
     <ContainerCheckout>
       <BackButton backTo={`/plans/${sku}`} />
+      {success ? (
+        <SucessState>
+          <GiConfirmed color={theme.colors.primary} size={60} />
+        </SucessState>
+      ) : (
+        <InfoContainer>
+          <InfoGroup>
+            <Title>Nome:</Title>
+            <Info>{personalData.name}</Info>
+          </InfoGroup>
 
-      <InfoContainer>
-        <InfoGroup>
-          <Title>Nome:</Title>
-          <Info>{personalData.name}</Info>
-        </InfoGroup>
+          <InfoGroup>
+            <Title>Cpf:</Title>
+            <Info>{personalData.cpf}</Info>
+          </InfoGroup>
 
-        <InfoGroup>
-          <Title>Cpf:</Title>
-          <Info>{personalData.cpf}</Info>
-        </InfoGroup>
+          <InfoGroup>
+            <Title>Plano selecionado:</Title>
+            <Info>
+              {getPlanName(plan.sku)} - {plan.franquia}{' '}
+              {hasDevice && <>+ {plan.aparelho?.nome}</>}
+            </Info>
+          </InfoGroup>
 
-        <InfoGroup>
-          <Title>Plano selecionado:</Title>
-          <Info>
-            {getPlanName(plan.sku)} - {plan.franquia}{' '}
-            {hasDevice && <>+ {plan.aparelho?.nome}</>}
-          </Info>
-        </InfoGroup>
+          <InfoGroup>
+            <Title>Preço total:</Title>
+            <Info>À vista {getTotalPrice(plan)}</Info>
+            {hasDevice && hasInstallment && (
+              <>
+                <h3>Ou</h3>
+                <Title>Preço total:</Title>
+                <Info>
+                  {formatCurrencyBRL(plan.valor)} +
+                  {hasInstallment && <> {selectedInstallment} x </>}
+                  {priceInstallment(plan)}
+                </Info>
+              </>
+            )}
+          </InfoGroup>
 
-        <InfoGroup>
-          <Title>Preço total:</Title>
-          <Info>À vista {getTotalPrice(plan)}</Info>
-          {hasDevice && hasInstallment && (
-            <>
-              <h3>Ou</h3>
-              <Title>Preço total:</Title>
-              <Info>
-                {formatCurrencyBRL(plan.valor)} +
-                {hasInstallment && <> {selectedInstallment} x </>}
-                {priceInstallment(plan)}
-              </Info>
-            </>
-          )}
-        </InfoGroup>
-
-        <PrimaryButton>Confirmar</PrimaryButton>
-      </InfoContainer>
+          <PrimaryButton onClick={handleSuccessComponent}>
+            Confirmar
+          </PrimaryButton>
+        </InfoContainer>
+      )}
     </ContainerCheckout>
   );
 }
