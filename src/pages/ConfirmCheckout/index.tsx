@@ -51,6 +51,7 @@ export function ConfirmCheckout() {
   };
 
   const handleSuccessComponent = () => {
+    console.log({ ...plan, ...personalData });
     setSuccess(true);
   };
 

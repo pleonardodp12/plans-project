@@ -51,7 +51,7 @@ export function FormPlans(props: IProps) {
   };
 
   const fetchPlans = async (skuValue: string) => {
-    const response = await getPlans(skuValue);
+    const response: any = await getPlans(skuValue);
     setIsLoading(false);
     if (response.code === BAD_REQUEST_CODE) {
       return setPlanError(true);
